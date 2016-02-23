@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Ruby wrapper for Docker Compose}
   spec.description   = %q{TRuby wrapper for Docker Compose}
-  spec.homepage      = "http://westfieldlabs.com"
+  spec.homepage      = "https://github.com/mitcheaton1/docker_compose_ruby"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
