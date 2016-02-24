@@ -5,17 +5,19 @@ require 'pry-nav'
 
 module DockerCompose
   class << self
-    attr_accessor :project_name, :yaml_path
+    attr_accessor :project_name, :yaml_path, :yaml
 
     def set_yaml_path(path)
       @yaml_path = "-f #{path}"
+      @yaml = YAML.load_file(path)
     end
 
     def set_project_name(name)
       @project_name = "-p #{name}"
+      name
     end
 
-    def up
+    def up(options = {})
       compose('up')
     end
 
@@ -27,8 +29,17 @@ module DockerCompose
       compose('kill',container)
     end
 
+    def stop
+      compose('stop')
+    end
+
     def compose(command, options = {})
-      `docker-compose #{@yaml_path} #{@project_name} #{command}`
+      case command
+      when 'up'
+        `docker-compose #{@yaml_path} #{@project_name} #{command}`
+      when 'kill'
+        `docker-compose #{command} #{options}`
+      end
     end
 
     def version
