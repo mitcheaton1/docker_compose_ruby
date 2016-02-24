@@ -18,7 +18,7 @@ module DockerCompose
     end
 
     def up(options = {})
-      compose('up')
+      compose('up',options)
     end
 
     def build
@@ -36,9 +36,9 @@ module DockerCompose
     def compose(command, options = {})
       case command
       when 'up'
-        `docker-compose #{@yaml_path} #{@project_name} #{command}`
-      when 'kill'
-        `docker-compose #{command} #{options}`
+        `docker-compose #{options} #{@yaml_path} #{@project_name} #{command}`
+      when 'kill', 'stop', 'start'
+        `docker-compose #{options} #{command}`
       end
     end
 
