@@ -2,8 +2,6 @@
 
 Simple Ruby wrapper for the docker compose cli
 
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 You need to have the docker compose cli installed. 
