@@ -18,27 +18,34 @@ module DockerCompose
     end
 
     def up(options = {})
+      options = nil if options.empty?
       compose('up',options)
     end
 
-    def build
-      compose('build')
+    def delete(options = {})
+      options = nil if options.empty?
+      compose('delete',options)
     end
 
-    def kill(contianer)
-      compose('kill',container)
+    def stop(options = {})
+      options = nil if options.empty?
+      compose('stop', options)
     end
 
-    def stop
-      compose('stop')
+    def start(options = {})
+      options = nil if options.empty?
+      compose('start', options)
     end
 
-    def compose(command, options = {})
+    def compose(command, options)
       case command
       when 'up'
+        `docker-compose #{options} #{@yaml_path} #{@project_name} #{command} -d`
+      when 'delete'
+        `docker-compose #{options} #{@yaml_path} #{@project_name} kill`
+        `docker-compose #{options} #{@yaml_path} #{@project_name} rm -f`
+      when 'stop', 'start'
         `docker-compose #{options} #{@yaml_path} #{@project_name} #{command}`
-      when 'kill', 'stop', 'start'
-        `docker-compose #{options} #{command}`
       end
     end
 
