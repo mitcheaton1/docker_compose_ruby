@@ -44,6 +44,18 @@ module DockerCompose
       compose('up',options)
     end
 
+     # Ups the set of containers listed in your compose file.
+    #
+    # @param options [Hash]
+    # @return [String]
+    #
+    # @example
+    #   DockerCompose.up
+    def pull(options = {})
+      options = nil if options.empty?
+      compose('pull',options)
+    end
+
     # Deletes the set of containers listed in your compose file.
     #
     # @param options [Hash]
@@ -99,7 +111,7 @@ module DockerCompose
       when 'delete'
         `docker-compose #{options} #{@yaml_path} #{@project_name} kill`
         `docker-compose #{options} #{@yaml_path} #{@project_name} rm -f`
-      when 'stop', 'start', 'version'
+      when 'stop', 'start', 'version', 'pull'
         `docker-compose #{options} #{@yaml_path} #{@project_name} #{command}`
       end
     end
