@@ -107,12 +107,12 @@ module DockerCompose
     def compose(command, options)
       case command
       when 'up'
-        `docker-compose #{options} #{@yaml_path} #{@project_name} #{command} -d`
+        system "docker-compose #{options} #{@yaml_path} #{@project_name} #{command} -d"
       when 'delete'
-        `docker-compose #{options} #{@yaml_path} #{@project_name} kill`
-        `docker-compose #{options} #{@yaml_path} #{@project_name} rm -f`
+        system "docker-compose #{options} #{@yaml_path} #{@project_name} kill"
+        system "docker-compose #{options} #{@yaml_path} #{@project_name} rm -f"
       when 'stop', 'start', 'version', 'pull'
-        `docker-compose #{options} #{@yaml_path} #{@project_name} #{command}`
+        system "docker-compose #{options} #{@yaml_path} #{@project_name} #{command}"
       end
     end
   end
